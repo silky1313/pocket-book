@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://47.113.148.72:3306/pocket_book
+    username: root
+    password: password
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml

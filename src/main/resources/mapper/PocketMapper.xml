@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.silky.pocketbook.mapper.PocketMapper">
+  <resultMap id="BaseResultMap" type="com.silky.pocketbook.POJO.Pocket">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="record_day" jdbcType="TIMESTAMP" property="recordDay" />
+    <result column="kind" jdbcType="INTEGER" property="kind" />
+    <result column="value" jdbcType="DOUBLE" property="value" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, record_day, kind, value, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pocket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select * from pocket
+    where user_id = #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pocket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.silky.pocketbook.POJO.Pocket" useGeneratedKeys="true">
+    insert into pocket (record_day, kind, value, 
+      user_id)
+    values (#{recordDay,jdbcType=TIMESTAMP}, #{kind,jdbcType=INTEGER}, #{value,jdbcType=DOUBLE}, 
+      #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.silky.pocketbook.POJO.Pocket" useGeneratedKeys="true">
+    insert into pocket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordDay != null">
+        record_day,
+      </if>
+      <if test="kind != null">
+        kind,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordDay != null">
+        #{recordDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kind != null">
+        #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="addPocket">
+    insert into pocket(record_day, kind, value, user_id)
+    values(#{pocket.recordDay}, #{pocket.kind}, #{pocket.value}, #{pocket.userId})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.silky.pocketbook.POJO.Pocket">
+    update pocket
+    <set>
+      <if test="recordDay != null">
+        record_day = #{recordDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="kind != null">
+        kind = #{kind,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.silky.pocketbook.POJO.Pocket">
+    update pocket
+    set record_day = #{recordDay,jdbcType=TIMESTAMP},
+      kind = #{kind,jdbcType=INTEGER},
+      value = #{value,jdbcType=DOUBLE},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
