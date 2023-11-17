@@ -29,4 +29,8 @@ public class PocketService {
     public int deletPocket(Integer id) {
         return pocketMapper.deleteByPrimaryKey(id);
     }
+
+    public int updatePocket(Pocket updatePocket) {
+        return pocketMapper.updateByPrimaryKeySelective(updatePocket);
+    }
 }
