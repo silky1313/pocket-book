@@ -2,6 +2,7 @@ package com.silky.pocketbook.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.silky.pocketbook.POJO.Pocket;
+import com.silky.pocketbook.annotation.UserLoginToken;
 import com.silky.pocketbook.common.Response;
 import com.silky.pocketbook.service.PocketService;
 import com.silky.pocketbook.util.Controller;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@UserLoginToken
 public class PocketController {
     @Autowired
     PocketService pocketService;
 
+    @UserLoginToken
     @GetMapping("/pocket/getall/{id}")
     public Response selectByUserId(@PathVariable("id") Integer userId){
         List<Pocket> pockets = pocketService.selectByUserId(userId);

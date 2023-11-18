@@ -1,6 +1,7 @@
 package com.silky.pocketbook.controller;
 
 import com.silky.pocketbook.POJO.Kind;
+import com.silky.pocketbook.annotation.UserLoginToken;
 import com.silky.pocketbook.common.Response;
 import com.silky.pocketbook.service.KindeService;
 import com.silky.pocketbook.util.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@UserLoginToken
 public class KindController {
 
     @Autowired

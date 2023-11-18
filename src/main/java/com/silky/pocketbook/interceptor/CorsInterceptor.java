@@ -1,4 +1,4 @@
-package com.silky.pocketbook.config;
+package com.silky.pocketbook.interceptor;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
