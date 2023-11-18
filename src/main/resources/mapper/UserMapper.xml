@@ -15,6 +15,14 @@
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="judgeUserExists" resultType="java.lang.Integer">
+    select count(*) from user
+    where username=#{username}
+  </select>
+  <select id="selectByUsername" resultType="com.silky.pocketbook.POJO.User">
+    select * from user
+    where username=#{username}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}

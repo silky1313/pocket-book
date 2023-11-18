@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GloablExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Response handleException(Exception e) {
+        System.out.println("hhhh");
         String msg = e.getMessage();
         if (msg == null || msg.equals("")) {
             msg = "服务器出错";
