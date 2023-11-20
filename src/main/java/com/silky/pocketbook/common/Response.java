@@ -4,48 +4,34 @@ import lombok.Data;
 
 @Data
 public class Response {
-    private int code;
-
+    private HttpStatusCode code;
+    private Object data;
     private String message;
 
-    private String type;
-
-    private Boolean success;
-
-    private Object data;
-
-    public static Response success(String message) {
+    public static Response sendCode(HttpStatusCode code) {
         Response myResponse = new Response();
-        myResponse.setCode(200);
-        myResponse.setMessage(message);
-        myResponse.setSuccess(true);
-        myResponse.setType("success");
-        myResponse.setData(null);
+        myResponse.setCode(code);
         return myResponse;
     }
 
-    public static Response success(String message, Object data) {
-        Response myResponse = success(message);
+    public static Response sendMessage(String message, HttpStatusCode code) {
+        Response myResponse = sendCode(code);
+        myResponse.setMessage(message);
+        return myResponse;
+    }
+
+    public static Response sendData(String message, HttpStatusCode code, Object data) {
+        Response myResponse = sendMessage(message, code);
         myResponse.setData(data);
         return myResponse;
     }
-
-    public static Response warning(String message) {
-        Response myResponse = error(message);
-        myResponse.setType("warning");
-        return myResponse;
+    public static Response success(String message) {
+        return sendData(message, HttpStatusCode.OK, null);
     }
-
-    public static Response error(String message) {
-        Response myResponse = success(message);
-        myResponse.setSuccess(false);
-        myResponse.setType("error");
-        return myResponse;
+    public static Response success(String message, Object data) {
+        return sendData(message, HttpStatusCode.OK,  data);
     }
-
     public static Response fatal(String message) {
-        Response myResponse = error(message);
-        myResponse.setCode(500);
-        return myResponse;
+        return sendData(message, HttpStatusCode.BAD_REQUEST, null);
     }
 }

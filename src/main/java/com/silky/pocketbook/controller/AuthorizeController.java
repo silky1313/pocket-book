@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class AuthorizeController {
     @Autowired
@@ -20,16 +21,22 @@ public class AuthorizeController {
     private TokenService tokenService;
     @Autowired
     private MyPasswordEncoder myPasswordEncoder;
+
     @PostMapping("/user/login")
     public Response login(@RequestBody User user) {
         int success = userservice.create(user);
         User loginUser = userservice.findUserByUserName(user.getUsername());
-        if (loginUser == null) return Response.error("登录失败，用户不存在");
-        if (!myPasswordEncoder.matches(user.getPassword(), loginUser.getPassword())){
+        if (loginUser == null) {
+            return Response.fatal("用户不存在,登录失败");
+        }
+
+        if (!myPasswordEncoder.matches(user.getPassword(),
+                loginUser.getPassword())) {
             return Response.fatal("登录失败，密码错误");
         } else {
             String token = tokenService.getToken(loginUser);
             JSONObject jsonObject = new JSONObject();
+
             jsonObject.put("Authorization", token);
             return Response.success("登录成功", jsonObject);
         }

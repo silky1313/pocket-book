@@ -33,4 +33,14 @@ public class KindController {
         int success = kindeService.addOne(addKind);
         return Controller.result(success, "添加成功", "添加失败");
     }
+
+    @GetMapping("/test")
+    public Response test() {
+        try{
+            int a = 10 / 0;
+        } catch(Exception e) {
+            throw new RuntimeException("你访问了测试路由");
+        }
+        return null;
+    }
 }
