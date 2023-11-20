@@ -37,6 +37,7 @@ public class KindController {
     @PutMapping("/kind")
     public Response putOne(@RequestBody Kind addKind) {
         int success = kindeService.putOne(addKind);
-        return Controller.post(success);
+        System.out.println(addKind);
+        return Controller.put(success);
     }
 }

@@ -18,25 +18,25 @@ public class PocketController {
     @Autowired
     PocketService pocketService;
 
-    @GetMapping("/pocket/getall/{id}")
+    @GetMapping("/pocket/{id}")
     public Response selectByUserId(@PathVariable("id") Integer userId){
         List<Pocket> pockets = pocketService.selectByUserId(userId);
         return Controller.find(pockets);
     }
 
-    @PostMapping("/pocket/add")
+    @PostMapping("/pocket")
     public Response addPocket(@RequestBody Pocket addPocket) {
         int success = pocketService.addPocket(addPocket);
         return Controller.post(success);
     }
 
-    @PostMapping("/pocket/update")
+    @PutMapping("/pocket")
     public Response updatePocket(@RequestBody Pocket updatePocket) {
         int success = pocketService.updatePocket(updatePocket);
         return Controller.put(success);
     }
 
-    @DeleteMapping("/pocket/delete/{id}")
+    @DeleteMapping("/pocket/{id}")
     public Response deletePocket(@PathVariable("id") Integer id){
         int success = pocketService.deletPocket(id);
         return Controller.delete(success);

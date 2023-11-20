@@ -26,7 +26,6 @@ public class HttpStatusCodeAdvice implements ResponseBodyAdvice {
                                   ServerHttpResponse response) {
         if (body != null) {
             Response code = (Response) body;
-            System.out.println(code.getCode().getCode());
             response.setStatusCode(HttpStatus.valueOf(code.getCode().getCode()));
         }
         return body;
