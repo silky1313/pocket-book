@@ -22,6 +22,6 @@ public class GloablExceptionHandler {
         } else if(msg.equals("401")) {
             return Response.sendCode(HttpStatusCode.UNAUTHORIZED);
         }
-        return Response.fatal(msg);
+        return Response.fatalAsk(msg);
     }
 }

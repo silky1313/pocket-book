@@ -15,16 +15,16 @@ public class TokenService {
 
     @Value("${duration}")
     private Integer DURATION;
+
     /**
-     *
      * @param user
      * @return 为user颁发的token令牌
      */
     public String getToken(User user) {
         String token = "";
-        Date expiresAt = new Date(System.currentTimeMillis() + DURATION); // 设置过期时间为当前时间加上一个时间偏移量
-        token = JWT.create()
-                .withAudience(String.valueOf(user.getUsername()))
+        // 设置过期时间为当前时间加上一个时间偏移量
+        Date expiresAt = new Date(System.currentTimeMillis() + DURATION);
+        token = JWT.create().withAudience(String.valueOf(user.getUsername()))
                 .withExpiresAt(expiresAt) // 设置 Token 的过期时间
                 .sign(Algorithm.HMAC256(SECRET));
         return token;

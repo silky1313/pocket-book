@@ -19,28 +19,24 @@ public class KindController {
     @GetMapping("/kind")
     public Response getAll() {
         List<Kind> kindes = kindeService.getAll();
-        return Response.success("查询成功", kindes);
+        return Controller.find(kindes);
     }
 
     @DeleteMapping("/kind/{id}")
     public Response deleteOne(@PathVariable Integer id) {
         int success = kindeService.deleteOne(id);
-        return Controller.result(success, "删除成功", "删除失败");
+        return Controller.delete(success);
     }
 
     @PostMapping("/kind")
-    public Response addOne(@RequestBody Kind addKind) {
-        int success = kindeService.addOne(addKind);
-        return Controller.result(success, "添加成功", "添加失败");
+    public Response postOne(@RequestBody Kind addKind) {
+        int success = kindeService.postOne(addKind);
+        return Controller.post(success);
     }
 
-    @GetMapping("/test")
-    public Response test() {
-        try{
-            int a = 10 / 0;
-        } catch(Exception e) {
-            throw new RuntimeException("你访问了测试路由");
-        }
-        return null;
+    @PutMapping("/kind")
+    public Response putOne(@RequestBody Kind addKind) {
+        int success = kindeService.putOne(addKind);
+        return Controller.post(success);
     }
 }

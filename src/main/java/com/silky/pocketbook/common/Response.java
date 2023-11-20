@@ -1,6 +1,9 @@
 package com.silky.pocketbook.common;
 
+import com.silky.pocketbook.POJO.Kind;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Response {
@@ -25,13 +28,21 @@ public class Response {
         myResponse.setData(data);
         return myResponse;
     }
-    public static Response success(String message) {
-        return sendData(message, HttpStatusCode.OK, null);
+
+    public static Response successFind(Object data) {
+        return sendData("查询成功", HttpStatusCode.OK, data);
     }
-    public static Response success(String message, Object data) {
-        return sendData(message, HttpStatusCode.OK,  data);
+
+    public static Response successDelete() {
+        return sendMessage("删除成功", HttpStatusCode.NO_CONTENT);
     }
-    public static Response fatal(String message) {
-        return sendData(message, HttpStatusCode.BAD_REQUEST, null);
+    public static Response successPost() {
+        return sendMessage("新增成功", HttpStatusCode.CREATED);
+    }
+    public static Response successPut() {
+        return sendMessage("修改成功", HttpStatusCode.OK);
+    }
+    public static Response fatalAsk(String msg) {
+        return sendMessage(msg, HttpStatusCode.BAD_REQUEST);
     }
 }

@@ -18,29 +18,27 @@ public class PocketController {
     @Autowired
     PocketService pocketService;
 
-    @UserLoginToken
     @GetMapping("/pocket/getall/{id}")
     public Response selectByUserId(@PathVariable("id") Integer userId){
         List<Pocket> pockets = pocketService.selectByUserId(userId);
-        System.out.println(pockets);
-        return Response.success("succees get all", pockets);
+        return Controller.find(pockets);
     }
 
     @PostMapping("/pocket/add")
     public Response addPocket(@RequestBody Pocket addPocket) {
         int success = pocketService.addPocket(addPocket);
-        return Controller.result(success, "添加成功", "添加失败");
+        return Controller.post(success);
     }
 
     @PostMapping("/pocket/update")
     public Response updatePocket(@RequestBody Pocket updatePocket) {
         int success = pocketService.updatePocket(updatePocket);
-        return Controller.result(success, "更新成功", "更新失败");
+        return Controller.put(success);
     }
 
     @DeleteMapping("/pocket/delete/{id}")
     public Response deletePocket(@PathVariable("id") Integer id){
         int success = pocketService.deletPocket(id);
-        return Controller.result(success, "删除成功", "删除失败，请重新再试");
+        return Controller.delete(success);
     }
 }

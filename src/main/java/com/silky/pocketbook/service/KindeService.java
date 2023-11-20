@@ -12,6 +12,7 @@ import java.util.List;
 public class KindeService {
     @Autowired
     KindMapper kindMapper;
+
     public List<Kind> getAll() {
         return kindMapper.getAll();
     }
@@ -20,7 +21,11 @@ public class KindeService {
         return kindMapper.deleteByPrimaryKey(id);
     }
 
-    public int addOne(Kind addKind) {
+    public int postOne(Kind addKind) {
         return kindMapper.addOne(addKind);
+    }
+
+    public int putOne(Kind addKind) {
+        return kindMapper.updateByPrimaryKeySelective(addKind);
     }
 }

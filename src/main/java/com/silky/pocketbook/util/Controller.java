@@ -7,22 +7,39 @@ import com.silky.pocketbook.common.Response;
 import io.jsonwebtoken.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.parameters.P;
 
 public class Controller {
-
-    /**
-     *
-     * @param success
-     * @param successMsg
-     * @param failMsg
-     * @return 返回给客户端的ans
-     */
-    public static Response result(int success, String successMsg, String failMsg) {
-        if(success == 1) {
-            return Response.success(successMsg);
+    public static Response find(Object data){
+        if(data != null){
+            return Response.successFind(data);
+        } else {
+            return Response.fatalAsk("查询失败，请稍后再试");
         }
-        else {
-            return Response.fatal(failMsg);
+    }
+
+    public static Response delete(int success) {
+        if(success == 1) {
+            return Response.successDelete();
+        } else {
+            return Response.fatalAsk("删除失败，请稍后再试");
+        }
+    }
+
+    public static Response post(int success) {
+        if(success == 1) {
+            return Response.successPost();
+        } else {
+            return Response.fatalAsk("新增失败，请稍后再试");
+        }
+    }
+    
+
+    public static Response put(int success) {
+        if(success == 1) {
+            return Response.successPut();
+        } else {
+            return Response.fatalAsk("修改失败，请稍后再试");
         }
     }
 }

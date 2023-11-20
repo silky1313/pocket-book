@@ -2,6 +2,7 @@ package com.silky.pocketbook.controller;
 
 import cn.hutool.json.JSONObject;
 import com.silky.pocketbook.POJO.User;
+import com.silky.pocketbook.common.HttpStatusCode;
 import com.silky.pocketbook.common.Response;
 import com.silky.pocketbook.service.TokenService;
 import com.silky.pocketbook.service.UserService;
@@ -27,24 +28,24 @@ public class AuthorizeController {
         int success = userservice.create(user);
         User loginUser = userservice.findUserByUserName(user.getUsername());
         if (loginUser == null) {
-            return Response.fatal("用户不存在,登录失败");
+            return Response.fatalAsk("用户不存在,登录失败");
         }
 
         if (!myPasswordEncoder.matches(user.getPassword(),
                 loginUser.getPassword())) {
-            return Response.fatal("登录失败，密码错误");
+            return Response.fatalAsk("登录失败，密码错误");
         } else {
             String token = tokenService.getToken(loginUser);
             JSONObject jsonObject = new JSONObject();
 
             jsonObject.put("Authorization", token);
-            return Response.success("登录成功", jsonObject);
+            return Response.sendData("登录成功", HttpStatusCode.OK, jsonObject);
         }
     }
 
     @PostMapping("/user/register")
     public Response register(@RequestBody User user) {
         int success = userservice.create(user);
-        return Controller.result(success, "注册用户成功", "用户名已存在");
+        return Controller.post(success);
     }
 }
