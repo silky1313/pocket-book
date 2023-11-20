@@ -41,7 +41,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (beanType.isAnnotationPresent(UserLoginToken.class)) {
             UserLoginToken userLoginToken = beanType.getAnnotation(UserLoginToken.class);
             if (token == null) {
-                throw new RuntimeException("无token，请重新登录");
+                throw new RuntimeException("请重新登录");
             }
 
             //TODO: 获取 token 中的 user id,之前在Audience中放了一个id

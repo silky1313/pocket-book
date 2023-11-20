@@ -6,11 +6,15 @@ import com.silky.pocketbook.POJO.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class TokenService {
     @Value("${secret}")
-    private String secret;
+    private String SECRET;
 
+    @Value("${duration}")
+    private Integer DURATION;
     /**
      *
      * @param user
@@ -18,8 +22,11 @@ public class TokenService {
      */
     public String getToken(User user) {
         String token = "";
-        token = JWT.create().withAudience(String.valueOf(user.getUsername())) // 将 user id 保存到 token 里面
-                .sign(Algorithm.HMAC256(secret)); // 以 password 作为 token 的密钥
+        Date expiresAt = new Date(System.currentTimeMillis() + DURATION); // 设置过期时间为当前时间加上一个时间偏移量
+        token = JWT.create()
+                .withAudience(String.valueOf(user.getUsername()))
+                .withExpiresAt(expiresAt) // 设置 Token 的过期时间
+                .sign(Algorithm.HMAC256(SECRET));
         return token;
     }
 }

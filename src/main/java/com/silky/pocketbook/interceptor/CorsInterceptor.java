@@ -1,5 +1,6 @@
 package com.silky.pocketbook.interceptor;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 拦截器解决各种问题
  */
-public class CorsInterceptor extends HandlerInterceptorAdapter {
+    public class CorsInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -19,4 +20,11 @@ public class CorsInterceptor extends HandlerInterceptorAdapter {
         response.setHeader("Access-Control-Allow-Credentials", "true");
         return true;
     }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        logger.info("进入到拦截器中:postHandle() 方法中");
+        System.out.println(request.getRequestURI());
+    }
+
 }
